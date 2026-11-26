@@ -1,0 +1,36 @@
+﻿
+# Data and generated results
+/data/
+/cache/
+/results/
+/output/
+/outputs/
+/figures/
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.csv
+*.pt
+*.pth
+*.ckpt
+*.pkl
+
+# Local environments and temporary files
+.venv*/
+venv/
+.cache/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.codex/
+.vscode/
+*.log
+
+# Credentials
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
