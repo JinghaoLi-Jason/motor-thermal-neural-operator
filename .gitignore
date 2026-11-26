@@ -1,19 +1,10 @@
 ﻿
 # Data and generated results
 /data/
-/cache/
-/results/
 /output/
 /outputs/
-/figures/
 *.h5
 *.hdf5
-*.npy
-*.npz
-*.csv
-*.pt
-*.pth
-*.ckpt
 *.pkl
 
 # Local environments and temporary files
@@ -34,3 +25,7 @@ __pycache__/
 *.key
 credentials.json
 secrets.json
+
+# Explicitly included portfolio artifacts
+!/artifacts/pretrained/final_all/final_model.pth
+!/reports/**/*.csv

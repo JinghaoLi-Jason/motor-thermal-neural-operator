@@ -1,0 +1,92 @@
+{
+  "dataset": "data/processed/fno_6cond_element_512_direct_ewma.h5",
+  "scenario": "loco_trainall",
+  "include_conditions": [
+    "25",
+    "half",
+    "75",
+    "full"
+  ],
+  "train_conditions": [
+    "25",
+    "75",
+    "full"
+  ],
+  "val_conditions": [],
+  "test_condition": "half",
+  "split_summary": {
+    "25": {
+      "role": "train",
+      "train": 100,
+      "val": 0,
+      "test": 0
+    },
+    "half": {
+      "role": "test",
+      "train": 0,
+      "val": 0,
+      "test": 100
+    },
+    "75": {
+      "role": "train",
+      "train": 100,
+      "val": 0,
+      "test": 0
+    },
+    "full": {
+      "role": "train",
+      "train": 100,
+      "val": 0,
+      "test": 0
+    }
+  },
+  "val_tail": 19,
+  "seed": 42,
+  "modes": 16,
+  "width": 32,
+  "n_layers": 4,
+  "input_channels": 9,
+  "output_channels": 1,
+  "epochs": 100,
+  "batch_size": 8,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "scheduler": "cosine",
+  "grad_clip": 1.0,
+  "early_stop_patience": 15,
+  "n_params": 603489,
+  "input_type": "direct_ewma",
+  "target": "dT",
+  "dT_mean": 31.225386900780077,
+  "dT_std": 20.536387266339077,
+  "normalization": {
+    "source": "training_samples_and_active_pixels_only",
+    "method": "population_mean_and_standard_deviation",
+    "active_pixel_count_across_training_samples": 34097700,
+    "training_sample_count": 300,
+    "dataset_global_dT_mean": 30.916154861450195,
+    "dataset_global_dT_std": 17.55732536315918,
+    "training_mean_in_dataset_normalized_space": 0.017612707683753902,
+    "training_std_in_dataset_normalized_space": 1.1696762941712586,
+    "fold_dT_mean": 31.225386900780077,
+    "fold_dT_std": 20.536387266339077
+  },
+  "T_abs_mean": 24.346912384033203,
+  "T_abs_std": 1.2358964681625366,
+  "ewma_spans": [
+    3,
+    10,
+    30
+  ],
+  "device_info": {
+    "device": "cuda:1",
+    "cuda_available": true,
+    "pytorch_version": "2.5.1+cu121",
+    "pytorch_cuda_version": "12.1",
+    "gpu_index": 1,
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "gpu_total_memory_bytes": 85094825984,
+    "gpu_total_memory_gib": 79.250732421875
+  },
+  "test_evaluated_during_training": false
+}

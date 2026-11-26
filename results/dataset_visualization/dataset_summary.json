@@ -1,0 +1,130 @@
+{
+  "dataset": "/h/sepakak/STUDENTS/Jinghao/NeuralOperator/data/processed/fno_6cond_element_512_direct_ewma.h5",
+  "X_all_shape": [
+    600,
+    9,
+    512,
+    512
+  ],
+  "Y_all_shape": [
+    600,
+    1,
+    512,
+    512
+  ],
+  "X_all_dtype": "float32",
+  "Y_all_dtype": "float32",
+  "channel_names": [
+    "u0",
+    "t_norm",
+    "x",
+    "y",
+    "Q_input",
+    "p",
+    "ewma_3",
+    "ewma_10",
+    "ewma_30"
+  ],
+  "target_storage": "global_normalized",
+  "active_pixels": 113659,
+  "coverage_percent": 43.35746765136719,
+  "conditions": {
+    "25": {
+      "label": "25%",
+      "n_samples": 100,
+      "first_index": 0,
+      "last_index": 99
+    },
+    "half": {
+      "label": "50%",
+      "n_samples": 100,
+      "first_index": 500,
+      "last_index": 599
+    },
+    "62.5": {
+      "label": "62.5%",
+      "n_samples": 100,
+      "first_index": 100,
+      "last_index": 199
+    },
+    "75": {
+      "label": "75%",
+      "n_samples": 100,
+      "first_index": 200,
+      "last_index": 299
+    },
+    "87.5": {
+      "label": "87.5%",
+      "n_samples": 100,
+      "first_index": 300,
+      "last_index": 399
+    },
+    "full": {
+      "label": "100%",
+      "n_samples": 100,
+      "first_index": 400,
+      "last_index": 499
+    }
+  },
+  "attributes": {
+    "P_full": 988.0,
+    "Q_input_definition": "p * Q_base",
+    "Q_mean": 50100.17368048804,
+    "Q_std": 80894.2622532583,
+    "T_abs_mean": 24.346911427072545,
+    "T_abs_std": 1.2358964052005015,
+    "conditions_json": "[\"25\", \"62.5\", \"75\", \"87.5\", \"full\", \"half\"]",
+    "coverage_percent": 43.35746765136719,
+    "dT_mean": 30.916154798887792,
+    "dT_std": 17.557326035141244,
+    "dataset_type": "direct_ewma_from_raw",
+    "ewma_alignment": "previous",
+    "ewma_alphas_json": "[0.5, 0.18181818181818182, 0.06451612903225806]",
+    "ewma_initial_state": "zero",
+    "ewma_spans_json": "[3, 10, 30]",
+    "ewma_update_equation": "m_i = alpha*p_i + (1-alpha)*m_previous",
+    "heat_source_mode": "scaled",
+    "in_channels": 9,
+    "input_definition": "[u0, t_norm, x, y, Q_input, p, ewma_3, ewma_10, ewma_30]",
+    "input_type": "direct_ewma",
+    "interp_method": "linear",
+    "n_25": 100,
+    "n_62.5": 100,
+    "n_75": 100,
+    "n_87.5": 100,
+    "n_conditions": 6,
+    "n_elements": 30443,
+    "n_full": 100,
+    "n_half": 100,
+    "n_input_channels": 9,
+    "n_nodes_original": 118947,
+    "n_output_channels": 1,
+    "power_fraction_25": 0.25,
+    "power_fraction_62.5": 0.625,
+    "power_fraction_75": 0.75,
+    "power_fraction_87.5": 0.875,
+    "power_fraction_full": 1.0,
+    "power_fraction_half": 0.5,
+    "resolution": 512,
+    "skip_initial": false,
+    "source_file_25": "data/raw/NodeTemperature25.csv",
+    "source_file_62.5": "data/raw/NodeTemperature62_5.csv",
+    "source_file_75": "data/raw/NodeTemperature75_2.csv",
+    "source_file_87.5": "data/raw/NodeTemperature87_5.csv",
+    "source_file_full": "data/raw/NodeTemperature100.csv",
+    "source_file_half": "data/raw/NodeTemperature50.csv",
+    "source_files_json": "[\"data/raw/coordinate_exp_test.txt\", \"data/raw/temp_exporttest.txt\", \"data/raw/NodeTemperature25.csv\", \"data/raw/NodeTemperature62_5.csv\", \"data/raw/NodeTemperature75_2.csv\", \"data/raw/NodeTemperature87_5.csv\", \"data/raw/NodeTemperature100.csv\", \"data/raw/NodeTemperature50.csv\"]",
+    "t_max": 21780.0,
+    "t_min": 217.8,
+    "target_definition": "dT = T(t) - u0",
+    "target_is_normalized": true,
+    "target_storage": "global_normalized",
+    "target_type": "dT",
+    "total_power_25": 247.0,
+    "total_power_62.5": 617.5,
+    "total_power_75": 741.0,
+    "total_power_87.5": 864.5,
+    "total_power_full": 988.0,
+    "total_power_half": 494.0
+  }
+}

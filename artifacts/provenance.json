@@ -1,0 +1,180 @@
+{
+  "description": "Selected original thesis experiment files. Source paths are relative to the original project root. File contents are unchanged.",
+  "files": {
+    "artifacts/pretrained/final_all/final_model.pth": {
+      "source": "results/direct_ewma_model/final_all/final_model.pth",
+      "sha256": "d6a95421c5bcff753eaf70feb526018e50a755ffeeb00e4adeb8e72247330e5b",
+      "bytes": 4789966
+    },
+    "artifacts/pretrained/final_all/config.json": {
+      "source": "results/direct_ewma_model/final_all/config.json",
+      "sha256": "690528644a1dd68ae6d94c13d677e00366801113bc0f04b9c4ba774fdad3a217",
+      "bytes": 2239
+    },
+    "artifacts/pretrained/final_all/normalization.json": {
+      "source": "results/direct_ewma_model/final_all/normalization.json",
+      "sha256": "0ab67bac05f40f41d4d371c32cc7d9b1c8bf80547f281d7e47a2ee6328cd8c61",
+      "bytes": 503
+    },
+    "artifacts/pretrained/final_all/history.json": {
+      "source": "results/direct_ewma_model/final_all/history.json",
+      "sha256": "8bcbf8a5cf78dc6644a902c3a01393ce6da02c40efdfcb1178e593fc176e5904",
+      "bytes": 14220
+    },
+    "artifacts/pretrained/final_all/training_runtime.json": {
+      "source": "results/direct_ewma_model/final_all/training_runtime.json",
+      "sha256": "42f67cbaf40a948e1476613838b23d8a67740f40098f733bcc372d9e5323b9b0",
+      "bytes": 705
+    },
+    "reports/varying_load/metrics.json": {
+      "source": "results/direct_ewma_model/final_all/visualization/metrics.json",
+      "sha256": "8701bfe8d33806f3f9b65754adad727b8a44ced854006c7d0adef63e7f39d9f9",
+      "bytes": 1416
+    },
+    "reports/varying_load/point_metrics.csv": {
+      "source": "results/direct_ewma_model/final_all/visualization/point_metrics.csv",
+      "sha256": "a0560bad0d427d1e7ec55d6d5cf505e5e1620cb405270005ce942da0bde3a614",
+      "bytes": 841
+    },
+    "reports/varying_load/point_trace_summary.json": {
+      "source": "results/direct_ewma_model/final_all/visualization/point_trace_summary.json",
+      "sha256": "20edc59b702e3d2b036d3e0e98c03d8fbc881d19097b458aa4930a1f89e91c33",
+      "bytes": 3199
+    },
+    "reports/varying_load/selected_monitoring_points.csv": {
+      "source": "results/direct_ewma_model/final_all/visualization/selected_monitoring_points.csv",
+      "sha256": "8990f5b9eefe62c43818918296f6c1aea6c4b4b997c6304cd3b9772459d47a28",
+      "bytes": 518
+    },
+    "reports/varying_load/load_ewma_memory_features.csv": {
+      "source": "results/direct_ewma_model/final_all/visualization/load_ewma_memory_features.csv",
+      "sha256": "508f669e846c06c0ace816bbe4789c4ce0cb241fa29333403cf36edba51d35f3",
+      "bytes": 19064
+    },
+    "reports/cross_validation/cv_summary.csv": {
+      "source": "results/direct_ewma_model/cv_summary.csv",
+      "sha256": "521207cd802f73ed3418fed1af8387ee69676cd968ec3e8fcc9e2e88657f9362",
+      "bytes": 679
+    },
+    "reports/cross_validation/cv_summary.json": {
+      "source": "results/direct_ewma_model/cv_summary.json",
+      "sha256": "1236234afebd8930b716bc64a7fed5bf04d8cf4c1405a3abf7cd0870753db225",
+      "bytes": 2050
+    },
+    "reports/cross_validation/test_25/config.json": {
+      "source": "results/direct_ewma_model/test_25/config.json",
+      "sha256": "0fb80f3c39b2f7ee495a96d66f8fbb2f458f3b97aad515d069776465fddcb4ca",
+      "bytes": 2148
+    },
+    "reports/cross_validation/test_25/normalization.json": {
+      "source": "results/direct_ewma_model/test_25/normalization.json",
+      "sha256": "73e99af1a663edb5c20356f00a42f21f8ffdd93bae487ca7514536a840bc6d2e",
+      "bytes": 502
+    },
+    "reports/cross_validation/test_25/history.json": {
+      "source": "results/direct_ewma_model/test_25/history.json",
+      "sha256": "616b14762bd63c16b8f0ad132a6e33336b6ab5c75fb2fe75afb5f79520da59da",
+      "bytes": 26076
+    },
+    "reports/cross_validation/test_25/cv_inference_metrics.json": {
+      "source": "results/direct_ewma_model/test_25/cv_inference_metrics.json",
+      "sha256": "6304e21a5af4799e25ed647a8e55f71dba70c850a2466b56cb23615d61b6ae66",
+      "bytes": 1823
+    },
+    "reports/cross_validation/test_50/config.json": {
+      "source": "results/direct_ewma_model/test_50/config.json",
+      "sha256": "a475613c6549526e5c6197dd4205256eb0898cdf41ca3f4508600a2e776545ff",
+      "bytes": 2109
+    },
+    "reports/cross_validation/test_50/normalization.json": {
+      "source": "results/direct_ewma_model/test_50/normalization.json",
+      "sha256": "1ffff38e48f343b8b9b5d229a6510ad114c6b7872c95b2c75a61c8650bea70e2",
+      "bytes": 505
+    },
+    "reports/cross_validation/test_50/history.json": {
+      "source": "results/direct_ewma_model/test_50/history.json",
+      "sha256": "75fdfa85fec24cf31c8de73c206e57990246dbd7629fbdf429e73845381aa946",
+      "bytes": 14205
+    },
+    "reports/cross_validation/test_50/cv_inference_metrics.json": {
+      "source": "results/direct_ewma_model/test_50/cv_inference_metrics.json",
+      "sha256": "1afd7949ee6d03a080acc16052aa95db217e3322d2f5c77d1637dea5e6194962",
+      "bytes": 1825
+    },
+    "reports/cross_validation/test_75/config.json": {
+      "source": "results/direct_ewma_model/test_75/config.json",
+      "sha256": "27ed69a35e6c40e249d69bf66f55546bbe7fd8773f3e5c53a9013c50cf882813",
+      "bytes": 2150
+    },
+    "reports/cross_validation/test_75/normalization.json": {
+      "source": "results/direct_ewma_model/test_75/normalization.json",
+      "sha256": "1f19ae6e79e75e11d64fa1fa1334e73427a74c99ae093c33cbeb2aab07b74c1e",
+      "bytes": 504
+    },
+    "reports/cross_validation/test_75/history.json": {
+      "source": "results/direct_ewma_model/test_75/history.json",
+      "sha256": "a3a286560354192cc5dfd2f1d38fa4ce762ac8bd24a3212af29622efdca63fbc",
+      "bytes": 23160
+    },
+    "reports/cross_validation/test_75/cv_inference_metrics.json": {
+      "source": "results/direct_ewma_model/test_75/cv_inference_metrics.json",
+      "sha256": "51696d15bec340da3cec1bdd17e55cbff7e4b5d2c78a703193a196c3da64dafe",
+      "bytes": 1818
+    },
+    "reports/cross_validation/test_100/config.json": {
+      "source": "results/direct_ewma_model/test_100/config.json",
+      "sha256": "a909c734e3788baac2cd2d3f05c5cf8dc3d8b84fb2df27c8511a165b7e7ea7e1",
+      "bytes": 2147
+    },
+    "reports/cross_validation/test_100/normalization.json": {
+      "source": "results/direct_ewma_model/test_100/normalization.json",
+      "sha256": "d26551cf638ceb1163a2a1cf62a50fb0793f8f77db2bd69570ba35ecd684e794",
+      "bytes": 503
+    },
+    "reports/cross_validation/test_100/history.json": {
+      "source": "results/direct_ewma_model/test_100/history.json",
+      "sha256": "c2425746e22e95701270750e5612f329240a8c21f08c900218caa9950cfaf004",
+      "bytes": 23232
+    },
+    "reports/cross_validation/test_100/cv_inference_metrics.json": {
+      "source": "results/direct_ewma_model/test_100/cv_inference_metrics.json",
+      "sha256": "cd238800fc3e6c334e3108d2c06ce9fc912e7b46433039417e686f50a59a3401",
+      "bytes": 1834
+    },
+    "docs/figures/temperature_fields.png": {
+      "source": "results/direct_ewma_model/final_all/visualization/direct_ewma_field_comparison.png",
+      "sha256": "41c3d3dad706cb4d2cf661a1ef07ca764bde56878900d067c9cf7379dc428572",
+      "bytes": 3893757
+    },
+    "docs/figures/varying_load_prediction.png": {
+      "source": "results/direct_ewma_model/final_all/visualization/direct_ewma_timeseries.png",
+      "sha256": "86bedd48d39e2c600b0dbcb0f1e60c7462b47f603f6471760b87b7a2a2c611c4",
+      "bytes": 361186
+    },
+    "docs/figures/ewma_load_history.png": {
+      "source": "results/direct_ewma_model/final_all/visualization/load_ewma_memory_features.png",
+      "sha256": "4559645d6a31d120e54eeea83f5d6151bd6f5a4ac88a59e62b8bb76ee84f0755",
+      "bytes": 205600
+    },
+    "docs/figures/point_temperature_traces.png": {
+      "source": "results/direct_ewma_model/final_all/visualization/point_temperature_traces_2col.png",
+      "sha256": "bc000fbb5c971d49e0ac574f715ae3514a110f5ac1f82409ba17884e62f835e2",
+      "bytes": 546715
+    },
+    "docs/figures/monitoring_points.png": {
+      "source": "results/direct_ewma_model/final_all/visualization/selected_monitoring_points.png",
+      "sha256": "21afbeaf80feb197e20d7c9f816331c7b8001ee87de7ae47f6e0dd4f0730f02e",
+      "bytes": 394810
+    },
+    "docs/figures/cross_validation.png": {
+      "source": "results/direct_ewma_model/cv_summary_barplot.png",
+      "sha256": "e1e58b4b15907fd36013c4d55cb2d6d3afc7a9a46b94fcf118e2c27af5aeadcf",
+      "bytes": 159280
+    },
+    "tools/check_dataset.py": {
+      "source": "test.py",
+      "sha256": "c3f13862d89f4d13e1349017137a97e9ec8ea43aca15b4c287d21df649c7d851",
+      "bytes": 1023
+    }
+  }
+}

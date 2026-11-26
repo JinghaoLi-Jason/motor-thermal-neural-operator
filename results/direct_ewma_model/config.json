@@ -1,0 +1,39 @@
+{
+  "dataset": "data/processed/fno_6cond_element_512_direct_ewma_v2.h5",
+  "scenario": "final_all",
+  "include_conditions": [
+    "half",
+    "75",
+    "full"
+  ],
+  "train_conditions": [
+    "half",
+    "75",
+    "full"
+  ],
+  "val_conditions": [],
+  "test_condition": null,
+  "modes": 16,
+  "width": 32,
+  "n_layers": 4,
+  "input_channels": 10,
+  "output_channels": 1,
+  "epochs": 100,
+  "batch_size": 8,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "scheduler": "cosine",
+  "n_params": 603553,
+  "input_type": "direct_ewma",
+  "target": "dT",
+  "dT_mean": 30.916154861450195,
+  "dT_std": 17.55732536315918,
+  "T_abs_mean": 24.346912384033203,
+  "T_abs_std": 1.2358964681625366,
+  "ewma_spans": [
+    3,
+    10,
+    20,
+    30
+  ]
+}

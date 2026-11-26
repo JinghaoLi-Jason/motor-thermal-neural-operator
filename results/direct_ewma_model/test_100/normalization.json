@@ -1,0 +1,12 @@
+{
+  "source": "training_samples_and_active_pixels_only",
+  "method": "population_mean_and_standard_deviation",
+  "active_pixel_count_across_training_samples": 27619137,
+  "training_sample_count": 243,
+  "dataset_global_dT_mean": 30.916154861450195,
+  "dataset_global_dT_std": 17.55732536315918,
+  "training_mean_in_dataset_normalized_space": -0.5124449626796709,
+  "training_std_in_dataset_normalized_space": 0.7526714431792418,
+  "fold_dT_mean": 21.91899192097125,
+  "fold_dT_std": 13.214897419456527
+}

@@ -1,0 +1,62 @@
+{
+  "cv_root": "results/direct_ewma_model_v2",
+  "n_folds": 4,
+  "field_rmse_mean_degC": 4.793342035450041,
+  "field_rmse_std_degC": 2.455289505330104,
+  "field_mae_mean_degC": 4.662973764762282,
+  "field_mae_std_degC": 2.4207035454304355,
+  "Tmax_rmse_mean_degC": 5.641970344532293,
+  "Tmax_rmse_std_degC": 3.742137708975309,
+  "Tmean_rmse_mean_degC": 5.129326047144621,
+  "Tmean_rmse_std_degC": 2.6089883626393036,
+  "folds": [
+    {
+      "fold": "test_100",
+      "test_condition": "full",
+      "test_condition_label": "100%",
+      "n_test_samples": 100,
+      "field_rmse_avg_degC": 7.9158260101079945,
+      "field_mae_avg_degC": 7.719128028750419,
+      "Tmax_rmse_degC": 5.5994970335406995,
+      "Tmax_mae_degC": 5.164172058105469,
+      "Tmean_rmse_degC": 8.385425682111658,
+      "Tmean_mae_degC": 7.6783225631713865
+    },
+    {
+      "fold": "test_25",
+      "test_condition": "25",
+      "test_condition_label": "25%",
+      "n_test_samples": 100,
+      "field_rmse_avg_degC": 5.578173580765724,
+      "field_mae_avg_degC": 5.481565723419189,
+      "Tmax_rmse_degC": 9.994439876287917,
+      "Tmax_mae_degC": 9.216323184967042,
+      "Tmean_rmse_degC": 6.079569114828099,
+      "Tmean_mae_degC": 5.475854873657227
+    },
+    {
+      "fold": "test_50",
+      "test_condition": "half",
+      "test_condition_label": "50%",
+      "n_test_samples": 100,
+      "field_rmse_avg_degC": 2.6324215772747994,
+      "field_mae_avg_degC": 2.548942594528198,
+      "Tmax_rmse_degC": 0.8623812964709208,
+      "Tmax_mae_degC": 0.7927750778198243,
+      "Tmean_rmse_degC": 2.8408783581796784,
+      "Tmean_mae_degC": 2.5318944549560545
+    },
+    {
+      "fold": "test_75",
+      "test_condition": "75",
+      "test_condition_label": "75%",
+      "n_test_samples": 100,
+      "field_rmse_avg_degC": 3.0469469736516475,
+      "field_mae_avg_degC": 2.902258712351322,
+      "Tmax_rmse_degC": 6.111563171829635,
+      "Tmax_mae_degC": 5.414031391143799,
+      "Tmean_rmse_degC": 3.2114310334590503,
+      "Tmean_mae_degC": 2.850761775970459
+    }
+  ]
+}

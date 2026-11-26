@@ -1,487 +1,90 @@
-# Direct EWMA Fourier Neural Operator for Motor Thermal Prediction
+# Motor Thermal Prediction with Fourier Neural Operators
 
-This repository contains the data-processing, training, evaluation, and
-visualization workflow for a Fourier Neural Operator (FNO) that predicts
-the transient temperature field of an electric motor.
+**A Python and PyTorch research workflow for predicting transient electric-motor temperature fields from finite-element simulation data.**
 
-The final approach is a **direct FNO with exponentially weighted moving
-average (EWMA) load-memory features**. Each requested time point is
-predicted directly.
+This project was developed by Jinghao Li during an M.Sc. thesis in Systems, Control and Mechatronics at Chalmers University of Technology, carried out at ABB Corporate Research. It combines a Fourier Neural Operator (FNO) with exponentially weighted moving-average (EWMA) load-history features, covering preprocessing, training, evaluation, and visualization.
 
-## Model formulation
+![Predicted and FEM temperature fields at four times](docs/figures/temperature_fields.png)
 
-The model input at time index \(i\) is
+## Results
 
-\[
-\mathbf{a}(\mathbf{x},t_i)
-=
-\left[
-u_0(\mathbf{x}),
-t_{\mathrm{norm},i},
-x,
-y,
-Q_i(\mathbf{x}),
-p_i,
-m_i^{(3)},
-m_i^{(10)},
-m_i^{(30)}
-\right],
-\]
+The archived final model was trained on five constant-load conditions: 50%, 62.5%, 75%, 87.5%, and 100%. A separate **100% → 50% → 75%** load sequence was used to evaluate its transient response.
 
-where
+| Metric on the varying-load sequence | Archived result |
+| --- | ---: |
+| Maximum-temperature RMSE | **4.61 °C** |
+| Spatial-mean-temperature RMSE | **3.02 °C** |
+| Full-profile inference time | **2.22 s** |
+| Evaluated time points | 276 |
+| Model parameters | 603,489 |
 
-\[
-Q_i(\mathbf{x})
-=
-p_i Q_{\mathrm{base}}(\mathbf{x}).
-\]
+Values come from the included [metrics](reports/varying_load/metrics.json) and [model configuration](artifacts/pretrained/final_all/config.json). Runtime was measured on an NVIDIA A100 80 GB PCIe after CUDA warm-up, excluding model/data loading, FEM rasterization, metric calculation, plotting, and file export. It is not a measurement of the complete application startup time.
 
-The channels are:
+![Maximum and mean temperature predictions compared with FEM](docs/figures/varying_load_prediction.png)
 
-1. `u0`: normalized initial temperature field
-2. `t_norm`: normalized elapsed time
-3. `x`: normalized spatial coordinate
-4. `y`: normalized spatial coordinate
-5. `Q_input`: load-scaled heat-source field \(p_iQ_{\mathrm{base}}\)
-6. `p`: current load fraction
-7. `ewma_3`: short-term load-memory feature
-8. `ewma_10`: medium-term load-memory feature
-9. `ewma_30`: long-term load-memory feature
+## What the project demonstrates
 
-The output is the temperature rise
+- Turning ANSYS exports into structured, masked spatial datasets with traceable operating conditions.
+- Developing a nine-channel FNO that uses the initial temperature, time, coordinates, heat-source information, current load, and three EWMA memory features.
+- Separating training, validation, and held-out conditions, with model-specific target normalization calculated from training samples and active pixels.
+- Evaluating spatial fields, temperature summaries, local monitoring points, runtime, and limitations under changing loads.
 
-\[
-\Delta T(\mathbf{x},t_i)
-=
-T(\mathbf{x},t_i)-u_0(\mathbf{x}).
-\]
+The implementation predicts each requested time directly. Its output is a temperature rise relative to the initial field. See the [method](docs/method.md) for channel definitions and the EWMA update order.
 
-The absolute temperature field is reconstructed as
+## Explore the repository
 
-\[
-T(\mathbf{x},t_i)
-=
-u_0(\mathbf{x})+\Delta T(\mathbf{x},t_i).
-\]
+| Location | Contents |
+| --- | --- |
+| [train/direct_ewma](train/direct_ewma) | Original dataset, training, evaluation, and visualization scripts. |
+| [artifacts/pretrained/final_all](artifacts/pretrained/final_all) | A pretrained checkpoint, model configuration, normalization, 100-epoch training history, and runtime record. |
+| [reports/varying_load](reports/varying_load) | Saved metrics, monitoring-point results, and load-history features. |
+| [reports/cross_validation](reports/cross_validation) | Four held-out-condition results and their configurations and training histories. |
+| [docs/figures](docs/figures) | Original temperature fields, response curves, EWMA features, and cross-validation plots. |
+| [examples/inspect_results.py](examples/inspect_results.py) | Read the saved results and verify artifact checksums without installing ML dependencies. |
+| [tools/check_dataset.py](tools/check_dataset.py) | Original diagnostic for inspecting the heat-source channel in a local HDF5 dataset. |
 
-## EWMA definition
+## Quick start
 
-For the dataset used by the reported model, the EWMA state is initialized
-to zero and the stored feature at sample \(i\) represents the load history
-before the current sample:
+Inspect the published results using Python's standard library:
 
-\[
-m_0^{(s)}=0,
-\]
-
-\[
-m_i^{(s)}
-=
-\alpha_s p_{i-1}
-+
-(1-\alpha_s)m_{i-1}^{(s)},
-\qquad i\geq1,
-\]
-
-where
-
-\[
-\alpha_s=\frac{2}{s+1}.
-\]
-
-The current load \(p_i\) is supplied separately as an input channel. After
-sample \(i\) is constructed, \(p_i\) updates the EWMA state used by the
-next sample.
-
-The first stored EWMA values are therefore zero.
-
-## Repository structure
-
-```text
-train/direct_ewma/
-├── make_direct_ewma_dataset.py
-├── visualize_dataset.py
-├── plot_dataset_ewma_features.py
-├── train_direct_ewma.py
-├── eval_direct_ewma_cv.py
-└── infer_direct_ewma_varying.py
+```sh
+python examples/inspect_results.py
 ```
 
-### Script descriptions
+This command verifies the included artifacts and prints the model configuration, varying-load metrics, and cross-validation table. It reads saved experiments; it does not rerun inference.
 
-#### `make_direct_ewma_dataset.py`
+For the ML workflow, use Python 3.11 and a dedicated environment:
 
-Creates the direct-EWMA HDF5 dataset from the raw ANSYS temperature,
-coordinate, and heat-source exports.
-
-The generated dataset contains:
-
-```text
-X_all: [N, 9, H, W]
-Y_all: [N, 1, H, W]
-mask: [H, W]
-x_grid: [W]
-y_grid: [H]
-power_fraction_all: [N]
-time_norm_all: [N]
-elapsed_time_all: [N]
-idx_<condition>: sample indices for each condition
-```
-
-#### `visualize_dataset.py`
-
-Inspects the processed HDF5 dataset and generates:
-
-- Spatial input-field visualizations
-- Temperature evolution curves
-- Representative temperature fields
-- Target distributions
-- Condition-level summaries
-- Sample-level summaries
-
-#### `plot_dataset_ewma_features.py`
-
-Plots the load fraction and EWMA memory features for the processed
-operating conditions.
-
-#### `train_direct_ewma.py`
-
-Trains the direct EWMA-FNO.
-
-Supported scenarios include:
-
-- `final_all`: train a final model using all selected conditions
-- `train_val`: divide selected conditions into training and validation
-- `loco_trainall`: leave one condition out for testing without validation
-- `loco_val`: leave one condition out for testing and use an independent
-  validation subset for model selection
-
-For clean cross-validation, `loco_val` is recommended. Validation controls
-checkpoint selection and early stopping. The held-out condition should be
-evaluated only after model selection.
-
-#### `eval_direct_ewma_cv.py`
-
-Evaluates leave-one-condition-out cross-validation folds. It generates:
-
-- Field RMSE and MAE
-- Maximum-temperature RMSE and MAE
-- Mean-temperature RMSE and MAE
-- Temperature time-series comparisons
-- Representative field comparisons
-- Point-wise temperature traces
-- Global cross-validation summaries
-
-#### `infer_direct_ewma_varying.py`
-
-Evaluates the final model on the varying-load profile
-
-```text
-100% -> 50% -> 75%
-```
-
-with switch times:
-
-```text
-19000 s
-39000 s
-```
-
-and a final simulation time of:
-
-```text
-60000 s
-```
-
-It generates:
-
-- Load and EWMA curves
-- Global maximum- and mean-temperature comparisons
-- Error curves
-- Temperature-field comparisons
-- Point-wise temperature traces
-- CSV and JSON metrics
-- Full-profile inference runtime
-
-## Raw data
-
-The preprocessing workflow expects the following files under `data/raw/`:
-
-```text
-coordinate_exp_test.txt
-temp_exporttest.txt
-NodeTemperature25.csv
-NodeTemperature50.csv
-NodeTemperature62_5.csv
-NodeTemperature75_2.csv
-NodeTemperature87_5.csv
-NodeTemperature100.csv
-```
-
-The constant-load temperature files use the format:
-
-```text
-time, node_id, temperature
-```
-
-The coordinate file contains node identifiers and spatial coordinates.
-
-The heat-source file contains element centroids and heat-source values.
-
-Raw and processed data are not stored in the Git repository. Access is
-subject to the applicable company data-management requirements.
-
-## Installation
-
-Create and activate a Python environment before installing the
-dependencies.
-
-Using `venv`:
-
-```bash
+```sh
 python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
+```
+
+Activate it on Windows with `.venv\Scripts\Activate.ps1`, or on Linux/macOS with `source .venv/bin/activate`, then install:
+
+```sh
 python -m pip install -r requirements.txt
 ```
 
-For HPC use, activate the appropriate CUDA, Python, and environment
-modules before installing or running the code.
+A portable [Conda environment](environment.yml) is also included. Core dependency versions are drawn from the original environment; CUDA-specific packages and local build paths have been removed. The reduced environment has not been validated by a complete clean installation.
 
-## Dataset creation
+For full training and inference commands, see [reproducing the experiments](docs/reproducing_experiments.md).
 
-To reproduce the dataset used by the reported model:
+## Cross-validation and limitations
 
-```bash
-python train/direct_ewma/make_direct_ewma_dataset.py \
-    --data_dir data/raw \
-    --output data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --resolution 512 \
-    --spans 3 10 30 \
-    --heat_source_mode scaled \
-    --ewma_alignment previous \
-    --target_storage global_normalized \
-    --require_all_conditions
-```
+The included leave-one-condition-out results cover 25%, 50%, 75%, and 100% load. These are separate experiments from the final varying-load model. The archived fold metrics explicitly identify `final_model.pth` as the evaluated checkpoint; they should not be described as results from validation-selected `best_model.pth` checkpoints.
 
-The reproducibility-critical settings are:
+![Cross-validation metrics across held-out conditions](docs/figures/cross_validation.png)
 
-```text
-heat_source_mode = base
-ewma_alignment   = previous
-target_storage   = global_normalized
-```
+Accuracy varies by held-out load. The model also shows transient errors around load changes, as visible in the response plots. These experiments do not establish generalization to different motor geometries, arbitrary load histories, or deployment in a safety-critical control system.
 
-## Dataset visualization
+## Data and artifact availability
 
-```bash
-python train/direct_ewma/visualize_dataset.py \
-    --dataset data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --output_dir results/dataset_visualization \
-    --dpi 600
-```
+The pretrained model and selected original experiment outputs are included. Full FEM exports and the processed HDF5 dataset total approximately 4.9 GB locally and are not included in this Git repository. Full numerical reproduction requires the matching data and preprocessing configuration.
 
-## Final-model training
+The archived varying-load result records `heat_source_mode=base` and `ewma_alignment=previous`. The dataset builder also supports `scaled` heat-source inputs, which have different semantics. Check the configuration before pairing data with a checkpoint; changing input semantics requires retraining.
 
-The main final model uses the constant-load conditions:
+[artifacts/provenance.json](artifacts/provenance.json) records the original relative paths and SHA-256 hashes of the copied model, figures, and result files. These artifacts are preserved byte for byte.
 
-```text
-50%, 75%, 100%
-```
+## Author
 
-Example:
-
-```bash
-python train/direct_ewma/train_direct_ewma.py \
-    --scenario final_all \
-    --dataset data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --output_dir results/direct_ewma_model/final_50_75_100 \
-    --include_conditions half,75,full \
-    --device cuda:1
-```
-
-## Leave-one-condition-out cross-validation
-
-Example for a held-out 25% condition:
-
-```bash
-python train/direct_ewma/train_direct_ewma.py \
-    --scenario loco_val \
-    --dataset data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --output_dir results/direct_ewma_cv/test_25 \
-    --include_conditions 25,half,75,full \
-    --test_condition 25 \
-    --device cuda:1
-```
-
-Equivalent runs should be performed for:
-
-```text
-25%
-50%
-75%
-100%
-```
-
-The fold-specific model normalization parameters are calculated from
-training samples only and saved in each fold's `config.json`.
-
-## Cross-validation evaluation
-
-```bash
-python train/direct_ewma/eval_direct_ewma_cv.py \
-    --cv_root results/direct_ewma_cv \
-    --dataset data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --device cuda:1 \
-    --model_file best_model.pth
-```
-
-For `loco_val`, `best_model.pth` is the validation-selected checkpoint.
-
-## Varying-load inference
-
-```bash
-python train/direct_ewma/infer_direct_ewma_varying.py \
-    --model_dir results/direct_ewma_model/final_all \
-    --dataset data/processed/fno_6cond_element_512_direct_ewma.h5 \
-    --val_csv data/raw/NodeTemperature_100_50_75_correct_sampling_time.csv \
-    --coord_file data/raw/coordinate_exp_test.txt \
-    --output_dir results/final_inference_3cond \
-    --device cuda:1 \
-    --t_end 60000
-```
-
-The inference procedure must use the same EWMA alignment as the training
-dataset:
-
-1. Use the existing EWMA state for the current prediction.
-2. Predict the current time point.
-3. Update the EWMA state using the current load.
-4. Proceed to the next time point.
-
-## Model configuration
-
-The main FNO configuration is:
-
-```text
-Input channels:          9
-Output channels:         1
-Fourier layers:          4
-Hidden-channel width:    32
-Retained Fourier modes:  16 x 16
-Optimizer:               AdamW
-Initial learning rate:   1e-3
-Weight decay:            1e-4
-Batch size:              8
-Maximum epochs:          100
-Scheduler:               cosine annealing
-Gradient clipping:       1.0
-Loss:                    masked MSE
-Spatial resolution:      512 x 512
-```
-
-## Loss function
-
-Training minimizes masked mean-squared error over the active motor
-geometry:
-
-\[
-\mathcal{L}
-=
-\frac{
-\sum_{j=1}^{N}
-\sum_{\mathbf{x}}
-M(\mathbf{x})
-\left[
-\hat{u}_j(\mathbf{x})
--u_j(\mathbf{x})
-\right]^2
-}{
-N\sum_{\mathbf{x}}M(\mathbf{x})
-}.
-\]
-
-Pixels outside the geometry mask do not contribute to the loss.
-
-## Normalization
-
-The HDF5 dataset preserves global normalization parameters for
-compatibility with the original workflow.
-
-For leave-one-condition-out cross-validation, the training script
-reconstructs physical temperature rise and calculates new normalization
-statistics using training samples and active motor pixels only. The same
-training-derived normalization is then applied to validation and held-out
-test samples.
-
-Each trained model stores its normalization parameters in `config.json`.
-Inference scripts must use the model-specific values from `config.json`
-when converting predictions back to physical units.
-
-## Computational environment
-
-The final experiments were performed using an NVIDIA A100 80 GB PCIe GPU.
-
-Training runtime and inference runtime are stored in JSON files within the
-corresponding result directories.
-
-Inference runtime excludes:
-
-- Model loading
-- Raw FEM data loading
-- Ground-truth rasterization
-- Plot generation
-- CSV and JSON writing
-
-It represents the full-profile neural-operator prediction procedure,
-including feature construction, model forward passes, output
-denormalization, and temperature-summary extraction.
-
-## Generated files
-
-The training and evaluation workflows may generate:
-
-```text
-config.json
-normalization.json
-history.json
-best_metrics.json
-test_metrics.json
-training_runtime.json
-metrics.json
-cv_inference_metrics.json
-cv_summary.csv
-cv_summary.json
-final_model.pth
-best_model.pth
-```
-
-Large datasets, checkpoints, caches, and generated result directories
-should not be committed to the source-code repository unless explicitly
-required by the project owner.
-
-## Reproducibility notes
-
-The standalone raw-data builder was validated against the original
-two-stage preprocessing workflow.
-
-Using absolute and relative tolerances of \(10^{-5}\):
-
-- All nine model-input channels agreed.
-- The active-domain temperature-rise target agreed.
-- Geometry masks and spatial grids matched.
-- Condition indices and sample counts matched.
-- Load and EWMA features matched exactly.
-
-The new dataset contains additional traceability arrays and metadata.
-Inactive target pixels are explicitly stored as zero, whereas the legacy
-dataset retained arbitrary normalized values outside the geometry. This
-difference does not affect training or evaluation because the geometry
-mask is applied to all error calculations.
-
-## Data and confidentiality
-
-This repository contains source code for the project workflow. Raw FEM
-data, processed datasets, trained checkpoints, and company-specific
-results must be stored and shared only through approved company storage
-and according to the applicable project agreements.
+**Jinghao Li** — [GitHub](https://github.com/JinghaoLi-Jason) · [LinkedIn](https://www.linkedin.com/in/jinghao-li-669b42315/)

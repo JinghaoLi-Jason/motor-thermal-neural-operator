@@ -1,0 +1,25 @@
+{
+  "model_file_used": "best_model.pth",
+  "best_validation_epoch": 74,
+  "test_evaluated_during_training": false,
+  "test_evaluation_count_after_training": 1,
+  "test_loss": 0.44109467186033724,
+  "test_rmse_degC": 8.776668467223244,
+  "test_mae_degC": 7.908572544849066,
+  "final_test_time_s": 0.45053092390298843,
+  "training_validation_time_s": 293.3241712190211,
+  "training_validation_time_min": 4.888736186983684,
+  "normalization_source": "training_samples_and_active_pixels_only",
+  "fold_dT_mean": 21.91899192097125,
+  "fold_dT_std": 13.214897419456527,
+  "device_info": {
+    "device": "cuda:1",
+    "cuda_available": true,
+    "pytorch_version": "2.5.1+cu121",
+    "pytorch_cuda_version": "12.1",
+    "gpu_index": 1,
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "gpu_total_memory_bytes": 85094825984,
+    "gpu_total_memory_gib": 79.250732421875
+  }
+}

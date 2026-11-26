@@ -1,0 +1,36 @@
+{
+  "T_max_rmse": 7.0793255455313995,
+  "T_mean_rmse": 2.9995957229800263,
+  "T_max_mae": 6.387835875239697,
+  "T_mean_mae": 2.4529797211509163,
+  "T_max_max_err": 10.72073861440819,
+  "T_mean_max_err": 8.300129489939195,
+  "normalization_source": "training_samples_and_active_pixels_only",
+  "model_dT_mean": 35.50642939794341,
+  "model_dT_std": 17.624492544989778,
+  "dataset_dT_mean": 30.916154861450195,
+  "dataset_dT_std": 17.55732536315918,
+  "inference_time_s": 2.262233577668667,
+  "inference_time_ms": 2262.233577668667,
+  "n_inference_time_points": 276,
+  "inference_time_per_point_s": 0.00819649846981401,
+  "inference_time_per_point_ms": 8.19649846981401,
+  "timing_scope": "full-profile neural-operator inference after one CUDA warm-up; excludes model/data loading, FEM rasterization, metrics, plotting, and file output",
+  "device_info": {
+    "device": "cuda:1",
+    "cuda_available": true,
+    "pytorch_version": "2.5.1+cu121",
+    "pytorch_cuda_version": "12.1",
+    "gpu_index": 1,
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "gpu_total_memory_gib": 79.250732421875
+  },
+  "ewma_spans": [
+    3,
+    10,
+    30
+  ],
+  "model_dir": "results/direct_ewma_model_v2/final_50_75_100/",
+  "dataset": "data/processed/fno_6cond_element_512_direct_ewma.h5",
+  "gt_cache": "cache/varying_load_gt_timeseries_512.npz"
+}

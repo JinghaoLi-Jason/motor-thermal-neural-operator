@@ -1,0 +1,22 @@
+{
+  "epochs_requested": 100,
+  "epochs_completed": 100,
+  "early_stopping_active": false,
+  "best_validation_epoch": null,
+  "training_validation_time_s": 375.3776947259903,
+  "training_validation_time_min": 6.256294912099838,
+  "final_test_time_s": 0.4261261560022831,
+  "end_to_end_timed_procedure_s": 375.8038208819926,
+  "end_to_end_timed_procedure_min": 6.263397014699876,
+  "test_evaluated_during_epochs": false,
+  "device_info": {
+    "device": "cuda:1",
+    "cuda_available": true,
+    "pytorch_version": "2.5.1+cu121",
+    "pytorch_cuda_version": "12.1",
+    "gpu_index": 1,
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "gpu_total_memory_bytes": 85094825984,
+    "gpu_total_memory_gib": 79.250732421875
+  }
+}

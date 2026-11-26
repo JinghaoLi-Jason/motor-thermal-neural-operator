@@ -1,0 +1,8 @@
+{
+  "best_epoch": 99,
+  "best_val_loss": 0.0009959226457826923,
+  "best_val_rmse_degC": 0.5493626481027389,
+  "best_val_mae_degC": 0.37611426318131813,
+  "selection_source": "validation_only",
+  "test_metrics_used_for_selection": false
+}
